@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="index, follow"/>
+<!-- 双核浏览器默认内核模式 -->
+<meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="事了了工作众包平台"/>
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true"/>
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes"/>
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true"/>
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application"/>
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app"/>
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no"/>
+<!-- Windows 8 磁贴颜色 -->
+<meta name="msapplication-TileColor" content="#FFF"/>
+<link rel="stylesheet" type="text/css" href="../common/css/weui.css"/>
+<link rel="stylesheet" type="text/css" href="../common/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="../common/css/app.css"/>
+<link rel="stylesheet" type="text/css" href="../common/css/toast.min.css"/>
+<link rel="stylesheet" type="text/css" href="http://codeseven.github.io/toastr/build/toastr.min.css">
+<script type="text/javascript" src="http://codeseven.github.io/toastr/build/toastr.min.js" ></script>
+</head>
+<body>
+	<div id="app">
+		<div class="task-detail pb45">
+			<div class="panel mb10">
+				<div class="panel-header">
+					<h3>{{task.title}}</h3>
+				</div>
+			</div>
+			<div class="panel mb10">
+				<div class="panel-body">
+					<div class="task-detail-content">价格：{{task.hourPrice}}元/小时</div>
+					<div class="task-detail-content">需要人数：{{task.needWorkerNum}}</div>
+					<div class="task-detail-content">已报名人数：{{task.enlistNum}}</div>
+				</div>
+			</div>
+			<div class="panel mb10">
+				<div id="detailHead" class="panel-header">
+					<h3>任务描述<i class="triangle_down_press"></i></h3>
+				</div>
+				<div class="panel-body">
+					<div class="task-detail-content">{{task.jobDetail}}</div>
+				</div>
+			</div>
+			<span v-if="task.isEnlist == 0" class="span-class"><button v-on:click="applyTask" class="button button-primary" type="button">报名</button></span>
+			<span v-if="task.isEnlist == 1" class="span-class"><button v-on:click="cancelTask" class="button button-primary" type="button">取消报名</button></span>
+		</div>
+	</div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- <script src="../common/js/toast.min.js"></script> -->
+<script src="../common/js/common.js"></script>
+<script>
+	var vueData = {
+	  el: '#app',
+	  data: {
+		task: {}
+	  },
+	  methods:{
+		  applyTask:function(e){
+			myAjax.get('http://81.68.102.150/api/task/applyTask',{
+				sessionToken:'5a65fc4a7ca8b1143ea63d52f4261409',
+				taskId:getParameter('taskId')
+			},function(data){
+				Toast('报名成功',3000);
+				init();
+			});
+		  },
+		  cancelTask:function(e){
+			myAjax.get('http://81.68.102.150/api/task/cancelApplyTask',{
+				sessionToken:'5a65fc4a7ca8b1143ea63d52f4261409',
+				taskId:getParameter('taskId')
+			},function(data){
+				Toast('取消报名成功',3000);
+				init();
+			});
+		  }
+	  }
+	}
+	var vue = new Vue(vueData);
+	function init(){
+		myAjax.get('http://81.68.102.150/api/task/detail',{
+			sessionToken:'5a65fc4a7ca8b1143ea63d52f4261409',
+			id:getParameter('taskId')
+		},function(data){
+			vueData.data.task = data.data;
+		});
+	}
+	init();
+
+</script>
+</html>

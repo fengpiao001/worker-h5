@@ -1,0 +1,15 @@
+.task_list{ padding-left: 10px; padding-right: 10px;}
+.task_item{ text-decoration: none; color:#333; margin-top:10px;}
+
+.toast {
+    padding: 10px 25px 10px 25px;
+    background: rgba(0, 0, 0, .5);
+    border-radius: 5px;
+    color: #ffffff;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}

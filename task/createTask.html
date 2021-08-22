@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="index, follow"/>
+<!-- 双核浏览器默认内核模式 -->
+<meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="事了了工作众包平台"/>
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true"/>
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes"/>
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true"/>
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application"/>
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app"/>
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no"/>
+<!-- Windows 8 磁贴颜色 -->
+<meta name="msapplication-TileColor" content="#FFF"/>
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/weui/2.4.4/style/weui.css"/> -->
+<link rel="stylesheet" type="text/css" href="../common/css/weui.css"/>
+<link rel="stylesheet" type="text/css" href="../common/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="../common/css/app.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="../common/css/jquery-weui.css"/> -->
+</head>
+<body>
+	<div id="app">
+        <div class="weui_cells_title">任务名称</div>
+		<div class="weui_cells weui_cells_form">
+			<div class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+	                <input class="weui_input" v-model="title" type="text" name="title" placeholder="请输入任务名称" data-descriptions="title">
+	            </div>
+			</div>
+		</div>
+		<div class="weui_cells_title">任务描述</div>
+		<div class="weui_cells weui_cells_form">
+	        <div class="weui_cell">
+	            <div class="weui_cell_bd weui_cell_primary">
+	                <textarea name="jobDetail" v-model="jobDetail" class="weui_textarea" placeholder="请填写详细的任务描述" rows="4"></textarea>
+	            </div>
+	        </div>
+	    </div>
+        <div class="weui_cells_title">每小时价格</div>
+		<div class="weui_cells weui_cells_form">
+			<div class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+	                <input class="weui_input" v-model.number="hourPrice" type="text" name="hourPrice" placeholder="请填写每小时价格" data-descriptions="hourPrice">
+	            </div>
+			</div>
+		</div>
+        <div class="weui_cells_title">需要人数</div>
+		<div class="weui_cells weui_cells_form">
+			<div class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+	                <input class="weui_input" v-model.number="needWorkerNum" type="text" name="needWorkerNum" placeholder="请填写需要人数" data-descriptions="需要人数">
+	            </div>
+			</div>
+		</div>
+	    <div class="weui_cells_title">结算类型</div>
+    	<div class="weui_cells weui_cells_radio">
+	        <label class="weui_cell weui_check_label weiui_check_label_fastclick">
+	            <div class="weui_cell_bd weui_cell_primary">
+	                <p>月结固定日期</p>
+	                <small>如每月25日固定结算</small>
+	            </div>
+	            <div class="weui_cell_ft">
+	                <input type="radio" class="weui_check" value="1" name="checkoutType" v-model="checkoutType">
+	                <span class="weui_icon_checked"></span>
+	            </div>
+	        </label>
+	        <label class="weui_cell weui_check_label weiui_check_label_fastclick">
+	
+	            <div class="weui_cell_bd weui_cell_primary">
+	                <p>固定工期结算</p>
+	                <small>如工期为50天，以工期结束进行结算</small>
+	            </div>
+	            <div class="weui_cell_ft">
+	                <input type="radio" name="checkoutType" v-model="checkoutType" value="2" class="weui_check">
+	                <span class="weui_icon_checked"></span>
+	            </div>
+	        </label>
+	    </div>
+        <div v-if="checkoutType==1" class="weui_cells_title">结算日</div>
+		<div v-if="checkoutType==1" class="weui_cells weui_cells_form">
+			<div class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+	                <input class="weui_input" v-model.number="monthCheckout" type="text" name="monthCheckout" placeholder="请输入固定结算日，如每个月25日，请输入25" data-descriptions="结算日">
+	            </div>
+			</div>
+		</div>
+        <div v-if="checkoutType==2" class="weui_cells_title">工期起始时间</div>
+		<div v-if="checkoutType==2" class="weui_cells weui_cells_form">
+			<div class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+	                <input class="weui_input" v-model.number="workTimeStart" type="date" name="workTimeStart" placeholder="请输入工期开始时间" data-descriptions="工期开始时间">
+	            </div>
+			</div>
+		</div>
+		<div v-if="checkoutType==2" class="weui_cells weui_cells_form">
+			<div class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+	                <input class="weui_input" v-model.number="workTimeEnd" type="date" name="workTimeEnd" placeholder="请输入工期结束时间" data-descriptions="工期结束时间">
+	            </div>
+			</div>
+		</div>
+        <span class="span-class"><button v-on:click="publishTask" class="button button-primary" type="button">发布任务</button></span>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../common/js/common.js"></script>
+<script>
+	const vueData = {
+	  el: '#app',
+	  data: {
+          title:'',
+          jobDetail:'',
+          hourPrice:null,
+          checkoutType:null,
+          needWorkerNum:null,
+          monthCheckout:null,
+          workTimeStart:null,
+          workTimeEnd:null,
+          taskStatus:null
+          
+      },
+      methods:{
+        publishTask:function(e){
+            vueData.data.taskStatus = 1;
+            myAjax.post('http://81.68.102.150/api/task/createTask?sessionToken=5a65fc4a7ca8b1143ea63d52f4261409',vueData.data,function(res){
+                alert(JSON.stringify(res));
+            });
+        }
+      }
+	}
+	var vue = new Vue(vueData);
+
+
+</script>
+</html>

@@ -54,7 +54,7 @@
 	  }
 	}
 	var vue = new Vue(vueData);
-	myAjax.get(BASE_URL + '/api/task/list',{sessionToken:SESSION_TOKEN},function(data){
+	myAjax.get(BASE_URL + '/task/list',{sessionToken:SESSION_TOKEN},function(data){
 		vueData.data.taskList = data.data.list;
 	});
 

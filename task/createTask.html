@@ -135,7 +135,7 @@
       methods:{
         publishTask:function(e){
             vueData.data.taskStatus = 1;
-            myAjax.post('http://81.68.102.150/api/task/createTask?sessionToken=5a65fc4a7ca8b1143ea63d52f4261409',vueData.data,function(res){
+            myAjax.post(BASE_URL + '/task/createTask?sessionToken=' + SESSION_TOKEN,vueData.data,function(res){
                 alert(JSON.stringify(res));
             });
         }

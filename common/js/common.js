@@ -57,6 +57,10 @@ function MyAjax(){
 
 var myAjax = new MyAjax();
 
+var SESSION_TOKEN = '0657a03e25788caeccad5b69f3dd812f';
+
+var BASE_URL = 'http://81.68.102.150/api';
+
 
 /**
  * 获取url参数
@@ -79,7 +83,7 @@ function Toast(msg,duration){
     duration=isNaN(duration)?3000:duration;  
     var m = document.createElement('div');  
     m.innerHTML = msg;  
-    m.style.cssText="font-size: .32rem;color: rgb(255, 255, 255);background-color: rgba(0, 0, 0, 0.6);padding: 10px 15px;margin: 0 0 0 -60px;border-radius: 4px;position: fixed;    top: 50%;left: 50%;width: 130px;text-align: center;";
+    m.style.cssText="font-size: 14px;color: rgb(255, 255, 255);background-color: rgba(0, 0, 0, 0.6);padding: 10px 15px;margin: 0 0 0 -60px;border-radius: 4px;position: fixed;    top: 50%;left: 50%;width: 130px;text-align: center;";
     document.body.appendChild(m);  
     setTimeout(function() {  
         var d = 0.5;

@@ -54,7 +54,7 @@
 	  }
 	}
 	var vue = new Vue(vueData);
-	myAjax.get('http://81.68.102.150/api/task/list',{sessionToken:'5a65fc4a7ca8b1143ea63d52f4261409'},function(data){
+	myAjax.get(BASE_URL + '/api/task/list',{sessionToken:SESSION_TOKEN},function(data){
 		vueData.data.taskList = data.data.list;
 	});
 

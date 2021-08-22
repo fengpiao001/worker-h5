@@ -71,8 +71,8 @@
 	  },
 	  methods:{
 		  applyTask:function(e){
-			myAjax.get('http://81.68.102.150/api/task/applyTask',{
-				sessionToken:'5a65fc4a7ca8b1143ea63d52f4261409',
+			myAjax.get(BASE_URL + '/task/applyTask',{
+				sessionToken:SESSION_TOKEN,
 				taskId:getParameter('taskId')
 			},function(data){
 				Toast('报名成功',3000);
@@ -80,8 +80,8 @@
 			});
 		  },
 		  cancelTask:function(e){
-			myAjax.get('http://81.68.102.150/api/task/cancelApplyTask',{
-				sessionToken:'5a65fc4a7ca8b1143ea63d52f4261409',
+			myAjax.get(BASE_URL + '/task/cancelApplyTask',{
+				sessionToken:SESSION_TOKEN,
 				taskId:getParameter('taskId')
 			},function(data){
 				Toast('取消报名成功',3000);
@@ -92,8 +92,8 @@
 	}
 	var vue = new Vue(vueData);
 	function init(){
-		myAjax.get('http://81.68.102.150/api/task/detail',{
-			sessionToken:'5a65fc4a7ca8b1143ea63d52f4261409',
+		myAjax.get(BASE_URL + '/task/detail',{
+			sessionToken:SESSION_TOKEN,
 			id:getParameter('taskId')
 		},function(data){
 			vueData.data.task = data.data;
